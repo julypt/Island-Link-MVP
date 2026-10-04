@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <title>Request a Delivery | Island Link</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/customer_delivery_request.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <p class="brand">Island Link</p>
+      <a class="home-link" href="index.html">Passenger Home</a>
+    </header>
+
+    <main>
+      <section class="form-card" id="request-form-section" aria-labelledby="page-title">
+        <h1 id="page-title">Request a Delivery</h1>
+        <p class="intro">Tell us what you're sending and where it needs to go. Nearby riders can review your request and decide whether they can take it.</p>
+
+        <form id="delivery-form" novalidate>
+          <div class="field" data-error-for="pickup-location">
+            <label for="pickup-location">Pickup Location</label>
+            <p class="field-hint" id="pickup-location-hint">Where should the rider pick up the package? Select a suggestion or type a location.</p>
+            <input id="pickup-location" name="pickupLocation" type="text" list="pickup-location-suggestions" placeholder="Select or type a pickup location" required aria-describedby="pickup-location-hint">
+            <datalist id="pickup-location-suggestions">
+              <option value="Supermarket"></option>
+              <option value="Poblacion"></option>
+              <option value="Barangay Hall"></option>
+              <option value="Mahayahay"></option>
+              <option value="Cuarinta"></option>
+              <option value="San Jose"></option>
+            </datalist>
+            <p class="field-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field" data-error-for="dropoff-location">
+            <label for="dropoff-location">Drop-off Location</label>
+            <p class="field-hint" id="dropoff-location-hint">Where should the rider deliver the package? Select a suggestion or type a location.</p>
+            <input id="dropoff-location" name="dropoffLocation" type="text" list="dropoff-location-suggestions" placeholder="Select or type a drop-off location" required aria-describedby="dropoff-location-hint">
+            <datalist id="dropoff-location-suggestions">
+              <option value="San Jose"></option>
+              <option value="Poblacion"></option>
+              <option value="Mahayahay"></option>
+              <option value="Cuarinta"></option>
+              <option value="Barangay Hall"></option>
+              <option value="Supermarket"></option>
+            </datalist>
+            <p class="field-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field" data-error-for="package-description">
+            <label for="package-description">What are you sending?</label>
+            <textarea id="package-description" name="packageDescription" placeholder="Example: Documents, groceries, small parcel" required></textarea>
+            <p class="field-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field" data-error-for="package-size">
+            <label for="package-size">Package Size</label>
+            <select id="package-size" name="packageSize" required>
+              <option value="">Choose a package size</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+            </select>
+            <p class="field-error" aria-live="polite"></p>
+          </div>
+
+          <div class="field" data-error-for="customer-note">
+            <label for="customer-note">Note for Riders</label>
+            <p class="field-hint" id="note-hint">Add anything the rider should know before deciding whether to take your delivery.</p>
+            <textarea id="customer-note" name="customerNote" maxlength="500" placeholder="Example: Please handle carefully. We can pay ₱100 for delivery." aria-describedby="note-hint"></textarea>
+            <p class="field-error" aria-live="polite"></p>
+          </div>
+
+          <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+          <button class="button-primary form-submit" type="submit">Request Delivery</button>
+          <p class="prototype-note">Prototype only. This simulates the delivery flow locally and does not send real location or rider data.</p>
+        </form>
+      </section>
+
+      <section class="waiting-card" id="waiting-screen" aria-labelledby="waiting-title" hidden>
+        <div class="waiting-content">
+          <div class="waiting-copy">
+            <h1 id="waiting-title" tabindex="-1">Waiting for a Driver...</h1>
+            <p class="waiting-intro">Your delivery request is visible to nearby riders. We'll let you know when someone offers to take your delivery.</p>
+          </div>
+
+          <dl class="request-summary">
+            <div class="summary-item">
+              <dt>Pickup</dt>
+              <dd id="summary-pickup"></dd>
+            </div>
+            <div class="summary-item">
+              <dt>Drop-off</dt>
+              <dd id="summary-dropoff"></dd>
+            </div>
+            <div class="summary-item">
+              <dt>Package description</dt>
+              <dd id="summary-description"></dd>
+            </div>
+            <div class="summary-item">
+              <dt>Package size</dt>
+              <dd id="summary-size"></dd>
+            </div>
+            <div class="summary-item note" id="summary-note-wrap" hidden>
+              <dt>Customer note</dt>
+              <dd id="summary-note"></dd>
+            </div>
+          </dl>
+
+          <button class="cancel-button" id="open-cancel" type="button">Cancel Delivery Request</button>
+        </div>
+        <img class="waiting-background" src="../assets/driver.jpg" alt="">
+      </section>
+
+      <section class="cancelled-card" id="cancelled-screen" aria-labelledby="cancelled-title" hidden>
+        <h1 id="cancelled-title" tabindex="-1">Request Cancelled</h1>
+        <p>Your delivery request has been removed from the rider map.</p>
+        <a class="button-primary" href="index.html">Back to Passenger Home</a>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="success-dialog" aria-labelledby="success-dialog-title">
+    <section class="dialog-content">
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 13.5 8.5 18 20 6.5"></path>
+        </svg>
+      </span>
+      <h2 id="success-dialog-title">Delivery Request Posted!</h2>
+      <p>Your delivery request is now visible to nearby riders. We'll let you know when a rider offers to take it.</p>
+      <div class="dialog-actions">
+        <button class="button-primary" id="wait-for-rider" type="button">Wait for a Driver</button>
+      </div>
+    </section>
+  </dialog>
+
+  <dialog id="cancel-dialog" aria-labelledby="cancel-dialog-title">
+    <section class="dialog-content">
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12"></path>
+        </svg>
+      </span>
+      <h2 id="cancel-dialog-title">Cancel this delivery request?</h2>
+      <p>Your delivery request will be removed from the rider map.</p>
+      <div class="dialog-actions">
+        <button class="button-secondary" id="keep-request" type="button">Keep Request</button>
+        <button class="button-primary" id="confirm-cancel" type="button">Cancel Request</button>
+      </div>
+    </section>
+  </dialog>
+
+  <script src="../js/customer_delivery_request.js"></script>
+</body>
+</html>

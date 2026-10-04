@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <title>Custom Rider Request | Island Link</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/customer_custom_request.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <p class="brand">Island Link</p>
+      <a class="home-link" href="index.html">Passenger Home</a>
+    </header>
+
+    <main>
+      <section class="form-card" id="request-form-section" aria-labelledby="page-title">
+        <span class="request-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32">
+            <path d="M16 3.5 19.8 11l8.2 1.2-6 5.9 1.4 8.3-7.4-3.9-7.4 3.9 1.4-8.3-6-5.9 8.2-1.2z"></path>
+          </svg>
+        </span>
+        <h1 id="page-title">Custom Rider Request</h1>
+        <p class="intro">Tell riders what you need.</p>
+
+        <form id="custom-request-form" novalidate>
+          <div class="field" data-field="request">
+            <label for="request-description">What do you need?</label>
+            <p class="field-hint" id="request-hint">Describe what you need from the rider...</p>
+            <textarea id="request-description" name="requestDescription" rows="7" maxlength="1500" required aria-describedby="request-hint request-error" placeholder="Describe what you need from the rider..."></textarea>
+            <p class="field-error" id="request-error" aria-live="polite"></p>
+          </div>
+
+          <fieldset class="schedule-fieldset">
+            <legend>Where?</legend>
+            <p class="field-hint">Select a suggested location or type your own. Add route details if you have more than one stop.</p>
+            <div class="field">
+              <label for="main-location">Main location</label>
+              <input id="main-location" name="mainLocation" type="text" list="location-suggestions" placeholder="Select or type a location" required aria-describedby="location-error">
+              <datalist id="location-suggestions">
+                <option value="Poblacion"></option>
+                <option value="San Jose"></option>
+                <option value="Mahayahay"></option>
+                <option value="Cuarinta"></option>
+                <option value="Dinagat"></option>
+              </datalist>
+              <p class="field-error" id="location-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="additional-locations">Additional locations or route details <span class="optional">(optional)</span></label>
+              <textarea id="additional-locations" name="additionalLocations" rows="3" maxlength="600" placeholder="Add another stop or describe where the rider should go next."></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="schedule-fieldset" id="schedule-options">
+            <legend>When do you need this?</legend>
+            <div class="schedule-choices">
+              <label class="schedule-choice"><input type="radio" name="scheduleType" value="asap" checked>ASAP</label>
+              <label class="schedule-choice"><input type="radio" name="scheduleType" value="specific">Specific time</label>
+              <label class="schedule-choice"><input type="radio" name="scheduleType" value="window">Time window</label>
+              <label class="schedule-choice"><input type="radio" name="scheduleType" value="none">No specific time</label>
+            </div>
+            <div class="schedule-detail field" id="specific-time-field" hidden>
+              <label for="specific-time">When?</label>
+              <input id="specific-time" name="specificTime" type="datetime-local" disabled>
+              <p class="field-error" id="specific-time-error" aria-live="polite"></p>
+            </div>
+            <div class="schedule-detail time-window" id="time-window-fields" hidden>
+              <div class="field">
+                <label for="window-start">From</label>
+                <input id="window-start" name="windowStart" type="datetime-local" disabled>
+                <p class="field-error" id="window-start-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="window-end">Until</label>
+                <input id="window-end" name="windowEnd" type="datetime-local" disabled>
+                <p class="field-error" id="window-end-error" aria-live="polite"></p>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="field">
+            <label for="offer-deadline">Accept offers until <span class="optional">(optional)</span></label>
+            <p class="field-hint" id="deadline-hint">Choose when you no longer want to receive new offers. Leave blank for no deadline.</p>
+            <input id="offer-deadline" name="offerDeadline" type="datetime-local" aria-describedby="deadline-hint">
+          </div>
+
+          <div class="field">
+            <label for="optional-note">Optional note <span class="optional">(optional)</span></label>
+            <textarea id="optional-note" name="optionalNote" rows="3" maxlength="600" placeholder="Anything else the rider should know?"></textarea>
+          </div>
+
+          <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+          <button class="button-primary form-submit" type="submit">Post Request</button>
+          <p class="prototype-note">Prototype only. Your request is shown locally and is not sent to a server.</p>
+        </form>
+      </section>
+
+      <section class="waiting-card" id="waiting-screen" aria-labelledby="waiting-title" hidden>
+        <div class="waiting-content">
+          <div class="waiting-copy">
+            <h1 id="waiting-title" tabindex="-1">Waiting for a Driver...</h1>
+            <p class="waiting-intro">Your custom request is visible to nearby riders. We'll let you know when someone offers to help.</p>
+          </div>
+          <dl class="request-summary">
+            <div class="summary-item">
+              <dt>What you need</dt>
+              <dd id="summary-request"></dd>
+            </div>
+            <div class="summary-item">
+              <dt>Location</dt>
+              <dd id="summary-location"></dd>
+            </div>
+            <div class="summary-item" id="summary-route-wrap" hidden>
+              <dt>Additional locations or route details</dt>
+              <dd id="summary-route"></dd>
+            </div>
+            <div class="summary-item">
+              <dt>When</dt>
+              <dd id="summary-schedule"></dd>
+            </div>
+            <div class="summary-item" id="summary-deadline-wrap" hidden>
+              <dt>Accept offers until</dt>
+              <dd id="summary-deadline"></dd>
+            </div>
+            <div class="summary-item" id="summary-note-wrap" hidden>
+              <dt>Optional note</dt>
+              <dd id="summary-note"></dd>
+            </div>
+          </dl>
+          <button class="cancel-button" id="open-cancel" type="button">Cancel Request</button>
+        </div>
+        <img class="waiting-background" src="../assets/driver.jpg" alt="">
+      </section>
+
+      <section class="cancelled-card" id="cancelled-screen" aria-labelledby="cancelled-title" hidden>
+        <h1 id="cancelled-title" tabindex="-1">Request Cancelled</h1>
+        <p>Your custom rider request has been removed.</p>
+        <a class="button-primary" href="index.html">Back to Passenger Home</a>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="success-dialog" aria-labelledby="success-title">
+    <section class="dialog-content">
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 13.5 8.5 18 20 6.5"></path>
+        </svg>
+      </span>
+      <h2 id="success-title">Request Posted!</h2>
+      <p>Your custom request is now available for nearby riders to review.</p>
+      <div class="dialog-actions">
+        <button class="button-primary" id="wait-for-driver" type="button">Wait for a Driver</button>
+      </div>
+      <p class="prototype-note">Mock request only. Nothing has been sent to a server.</p>
+    </section>
+  </dialog>
+
+  <dialog id="cancel-dialog" aria-labelledby="cancel-title">
+    <section class="dialog-content">
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 6 6 18M6 6l12 12"></path>
+        </svg>
+      </span>
+      <h2 id="cancel-title">Cancel this request?</h2>
+      <p>Your custom rider request will be removed from the rider map.</p>
+      <div class="dialog-actions">
+        <button class="button-secondary" id="keep-request" type="button">Keep Request</button>
+        <button class="button-primary" id="confirm-cancel" type="button">Cancel Request</button>
+      </div>
+    </section>
+  </dialog>
+
+  <script src="../js/customer_custom_request.js"></script>
+</body>
+</html>

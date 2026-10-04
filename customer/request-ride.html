@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9fc">
+  <title>Request a Ride | Island Link</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/customer_ride_request.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <p class="brand">Island Link</p>
+      <a class="home-link" href="index.html">Passenger Home</a>
+    </header>
+
+    <main>
+      <section class="form-card" id="request-form-section" aria-labelledby="page-title">
+        <h1 id="page-title">Request a Ride</h1>
+        <p class="intro">Tell us where you're going and a few details so nearby riders can decide whether they can take your request.</p>
+
+        <form id="ride-request-form" novalidate>
+          <div class="field">
+            <label for="passengers">Number of passengers</label>
+            <p class="field-hint" id="passengers-hint">Enter the total number of passengers in this request (1–4).</p>
+            <input id="passengers" name="passengers" type="number" min="1" max="4" step="1" value="1" required aria-describedby="passengers-hint">
+          </div>
+
+          <div class="field">
+            <label for="destination">Destination</label>
+            <input id="destination" name="destination" type="text" list="destination-suggestions" placeholder="Select or type a destination" required>
+            <datalist id="destination-suggestions">
+              <option value="San Jose"></option>
+              <option value="Poblacion"></option>
+              <option value="Mahayahay"></option>
+              <option value="Cuarinta"></option>
+            </datalist>
+          </div>
+
+          <div class="field">
+            <label for="customer-note">Note for Riders <span style="font-weight: 400; color: #5d6b7b;">(optional)</span></label>
+            <p class="field-hint" id="note-hint">Let riders know anything important before they decide to offer to take your request.</p>
+            <textarea id="customer-note" name="customerNote" maxlength="500" placeholder="Example: We pay ₱100 pesos each only." aria-describedby="note-hint"></textarea>
+          </div>
+
+          <p class="form-error" id="form-error" role="alert" aria-live="polite"></p>
+          <button class="button-primary form-submit" type="submit">Request a Ride</button>
+          <p class="prototype-note">Prototype only. Your request and location are simulated and are not sent to a rider.</p>
+        </form>
+      </section>
+
+      <section class="waiting-card" id="waiting-screen" aria-labelledby="waiting-title" hidden>
+        <div class="waiting-content">
+          <div class="waiting-copy">
+            <h1 id="waiting-title" tabindex="-1">Waiting for a Driver...</h1>
+            <p class="waiting-intro">Your request is visible to nearby riders. We'll let you know when someone offers to take your ride.</p>
+          </div>
+
+          <dl class="request-summary">
+            <div class="summary-item">
+              <dt>Passengers</dt>
+              <dd id="summary-passengers"></dd>
+            </div>
+            <div class="summary-item">
+              <dt>Destination</dt>
+              <dd id="summary-destination"></dd>
+            </div>
+            <div class="summary-item note" id="summary-note-wrap" hidden>
+              <dt>Note for Riders</dt>
+              <dd id="summary-note"></dd>
+            </div>
+          </dl>
+
+          <button class="cancel-button" id="open-cancel" type="button">Cancel Request</button>
+        </div>
+        <img class="waiting-background" src="../assets/driver.jpg" alt="">
+      </section>
+
+      <section class="cancelled-card" id="cancelled-screen" aria-labelledby="cancelled-title" hidden>
+        <h1 id="cancelled-title" tabindex="-1">Request Cancelled</h1>
+        <p>Your ride request has been removed from the rider map.</p>
+        <a class="button-primary" href="index.html">Back to Passenger Home</a>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="location-dialog" aria-labelledby="location-dialog-title">
+    <section class="dialog-content" id="location-intro-state">
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"></path>
+          <circle cx="12" cy="10" r="2.5"></circle>
+        </svg>
+      </span>
+      <h2 id="location-dialog-title">Share Your Location</h2>
+      <p>Your location helps nearby riders find where to pick you up. We need your location so your ride request can appear in the right place on the rider's map.</p>
+      <div class="dialog-actions">
+        <button class="button-secondary" id="location-not-now" type="button">Not Now</button>
+        <button class="button-primary" id="allow-location" type="button">Allow Location</button>
+      </div>
+    </section>
+
+    <section class="dialog-content" id="location-off-state" hidden>
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"></path>
+          <circle cx="12" cy="10" r="2.5"></circle>
+          <path d="m4 4 16 16"></path>
+        </svg>
+      </span>
+      <h2>Location is turned off</h2>
+      <p>Please turn on location services on your phone so we can place your request on the rider's map. Your request cannot be uploaded until your pickup location is available.</p>
+      <div class="dialog-actions">
+        <button class="button-secondary" id="location-off-back" type="button">Go Back</button>
+        <button class="button-primary" id="turn-on-location" type="button">Turn On Location</button>
+      </div>
+      <p class="prototype-note">Prototype simulation only. No device location is accessed.</p>
+    </section>
+
+    <section class="dialog-content" id="location-received-state" hidden>
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0z"></path>
+          <path d="m9 10 2 2 4-4"></path>
+        </svg>
+      </span>
+      <h2>Location received</h2>
+      <p>Your pickup location will be shown to nearby riders so they can find you.</p>
+      <div class="dialog-actions">
+        <button class="button-primary" id="continue-with-location" type="button">Continue</button>
+      </div>
+      <p class="prototype-note">This is a simulated confirmation, not a real GPS location.</p>
+    </section>
+
+    <section class="dialog-content" id="posted-state" hidden>
+      <span class="dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 7 10 17l-5-5"></path>
+          <path d="M21 12a9 9 0 1 1-4.2-7.6"></path>
+        </svg>
+      </span>
+      <h2>Ride Request Posted!</h2>
+      <p>Your request is now visible to nearby riders. We'll let you know when a rider offers to take your trip.</p>
+      <div class="dialog-actions">
+        <button class="button-primary" id="wait-for-rider" type="button">Wait for a Rider</button>
+      </div>
+      <p class="prototype-note">Mock request only. Nothing has been sent to a server.</p>
+    </section>
+  </dialog>
+
+  <dialog id="cancel-dialog" aria-labelledby="cancel-dialog-title">
+    <section class="dialog-content">
+      <h2 id="cancel-dialog-title">Cancel this request?</h2>
+      <p>Your ride request will be removed from the rider map.</p>
+      <div class="dialog-actions">
+        <button class="button-secondary" id="keep-request" type="button">Keep Request</button>
+        <button class="button-primary" id="confirm-cancel" type="button">Cancel Request</button>
+      </div>
+    </section>
+  </dialog>
+
+  <script src="../js/customer_ride_request.js"></script>
+</body>
+</html>
