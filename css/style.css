@@ -7,3 +7,199 @@
       min-height: 100vh;
       margin: 0;
     }
+
+    body.with-primary-nav {
+      padding-bottom: calc(78px + env(safe-area-inset-bottom));
+    }
+
+    .primary-nav {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      padding: 7px max(8px, env(safe-area-inset-left)) calc(7px + env(safe-area-inset-bottom));
+      border-top: 1px solid #e0e7ef;
+      background: rgb(255 255 255 / 97%);
+      box-shadow: 0 -4px 18px rgb(32 43 58 / 8%);
+    }
+
+    .primary-nav a {
+      display: flex;
+      min-width: 0;
+      min-height: 60px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      border-radius: 8px;
+      color: #536173;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .primary-nav a[aria-current="page"] {
+      background: #edf2e9;
+      color: #40553a;
+    }
+
+    .primary-nav a:focus-visible,
+    .back-link:focus-visible {
+      outline: 3px solid rgba(83, 109, 76, 0.2);
+      outline-offset: 2px;
+    }
+
+    .primary-nav svg {
+      width: 23px;
+      height: 23px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .back-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      gap: 7px;
+      color: #40553a;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .back-link svg {
+      width: 19px;
+      height: 19px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .prototype-tab-section {
+      margin-top: 38px;
+      padding: 24px;
+      border: 1px solid #e0e7ef;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 5px 18px rgb(30 56 82 / 5%);
+      scroll-margin-top: 20px;
+    }
+
+    .prototype-tab-section h2 {
+      margin: 0 0 8px;
+      color: #202b3a;
+      font-size: 1.2rem;
+    }
+
+    .prototype-tab-section p {
+      margin: 0;
+      color: #5d6b7b;
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .prototype-tab-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .prototype-tab-actions a {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 13px;
+      border: 1px solid #d6dfd1;
+      border-radius: 8px;
+      background: #edf2e9;
+      color: #40553a;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .prototype-tab-actions a:hover {
+      background: #e4ebdf;
+    }
+
+    .waiting-back {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      min-height: 44px;
+      align-self: flex-start;
+      align-items: center;
+      padding: 8px 12px;
+      border: 1px solid rgb(255 255 255 / 65%);
+      border-radius: 8px;
+      background: rgb(24 31 39 / 58%);
+      color: #fff;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .waiting-back:hover {
+      background: rgb(24 31 39 / 78%);
+    }
+
+    .with-primary-nav .waiting-card {
+      padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    }
+
+    .with-primary-nav .waiting-content {
+      min-height: calc(100vh - 124px - env(safe-area-inset-bottom));
+      min-height: calc(100dvh - 124px - env(safe-area-inset-bottom));
+    }
+
+    .role-switch-link {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+      padding: 11px 16px;
+      border: 1px solid #536d4c;
+      border-radius: 8px;
+      background: #536d4c;
+      color: #fff;
+      font-size: 0.94rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .role-switch-link:hover {
+      border-color: #40553a;
+      background: #40553a;
+    }
+
+    @media (max-width: 380px) {
+      .primary-nav a {
+        font-size: 0.69rem;
+      }
+
+      .primary-nav svg {
+        width: 21px;
+        height: 21px;
+      }
+
+      .prototype-tab-section {
+        padding: 19px;
+      }
+    }

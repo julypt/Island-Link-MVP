@@ -12,6 +12,8 @@ const specificTime = document.querySelector("#specific-time");
 const timeWindowFields = document.querySelector("#time-window-fields");
 const windowStart = document.querySelector("#window-start");
 const windowEnd = document.querySelector("#window-end");
+const customStorageKey = "islandLinkLatestCustomRequest";
+let currentRequest = null;
 
 function updateScheduleFields() {
   const selectedSchedule = form.querySelector('input[name="scheduleType"]:checked').value;
@@ -126,6 +128,13 @@ function showWaitingScreen() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+document.querySelector("#back-to-form").addEventListener("click", () => {
+  waitingScreen.hidden = true;
+  formSection.hidden = false;
+  document.querySelector("#page-title").focus();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
 form.querySelectorAll('input[name="scheduleType"]').forEach(input => {
   input.addEventListener("change", updateScheduleFields);
 });
@@ -133,6 +142,26 @@ form.querySelectorAll('input[name="scheduleType"]').forEach(input => {
 form.addEventListener("submit", event => {
   event.preventDefault();
   if (!validateRequest()) return;
+
+  const formData = new FormData(form);
+  currentRequest = {
+    id: `customer-custom-${Date.now()}`,
+    requestLocation: String(formData.get("mainLocation")).trim(),
+    description: String(formData.get("requestDescription")).trim(),
+    additionalLocations: String(formData.get("additionalLocations") || "").trim(),
+    schedule: scheduleSummary(formData),
+    offerDeadline: formatDateTime(formData.get("offerDeadline")),
+    note: String(formData.get("optionalNote") || "").trim()
+  };
+
+  try {
+    localStorage.setItem(customStorageKey, JSON.stringify(currentRequest));
+  } catch (error) {
+    console.error("Could not save the prototype custom request for Rider Home.", error);
+    formError.textContent = "This browser could not save your request for the rider prototype. Check local storage and try again.";
+    return;
+  }
+
   successDialog.showModal();
   document.querySelector("#wait-for-driver").focus();
 });
@@ -150,6 +179,20 @@ document.querySelector("#keep-request").addEventListener("click", () => {
 });
 
 document.querySelector("#confirm-cancel").addEventListener("click", () => {
+  try {
+    const storedRequest = localStorage.getItem(customStorageKey);
+    if (storedRequest) {
+      const savedRequest = JSON.parse(storedRequest);
+      if (currentRequest && savedRequest.id === currentRequest.id) {
+        localStorage.removeItem(customStorageKey);
+      }
+    }
+  } catch (error) {
+    console.error("Could not remove the cancelled prototype custom request.", error);
+    window.alert("This browser could not remove the saved request. Check local storage and try again.");
+    return;
+  }
+
   cancelDialog.close();
   waitingScreen.hidden = true;
   cancelledScreen.hidden = false;

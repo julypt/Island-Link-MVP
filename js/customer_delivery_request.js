@@ -5,6 +5,8 @@ const form = document.getElementById('delivery-form');
     const cancelledScreen = document.getElementById('cancelled-screen');
     const successDialog = document.getElementById('success-dialog');
     const cancelDialog = document.getElementById('cancel-dialog');
+    const deliveryStorageKey = 'islandLinkLatestDeliveryRequest';
+    let currentRequest = null;
 
     const fields = [
       document.getElementById('pickup-location'),
@@ -99,6 +101,24 @@ const form = document.getElementById('delivery-form');
         return;
       }
 
+      const formData = new FormData(form);
+      currentRequest = {
+        id: `customer-delivery-${Date.now()}`,
+        requestLocation: String(formData.get('pickupLocation')).trim(),
+        destination: String(formData.get('dropoffLocation')).trim(),
+        item: String(formData.get('packageDescription')).trim(),
+        packageSize: String(formData.get('packageSize')).trim(),
+        note: String(formData.get('customerNote') || '').trim()
+      };
+
+      try {
+        localStorage.setItem(deliveryStorageKey, JSON.stringify(currentRequest));
+      } catch (error) {
+        console.error('Could not save the prototype delivery request for Rider Home.', error);
+        formError.textContent = 'This browser could not save your request for the rider prototype. Check local storage and try again.';
+        return;
+      }
+
       successDialog.showModal();
     });
 
@@ -107,6 +127,13 @@ const form = document.getElementById('delivery-form');
       populateWaitingSummary();
       requestFormSection.hidden = true;
       waitingScreen.hidden = false;
+    });
+
+    document.getElementById('back-to-form').addEventListener('click', () => {
+      waitingScreen.hidden = true;
+      requestFormSection.hidden = false;
+      document.querySelector('#page-title').focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
     document.getElementById('open-cancel').addEventListener('click', () => {
@@ -118,6 +145,20 @@ const form = document.getElementById('delivery-form');
     });
 
     document.getElementById('confirm-cancel').addEventListener('click', () => {
+      try {
+        const storedRequest = localStorage.getItem(deliveryStorageKey);
+        if (storedRequest) {
+          const savedRequest = JSON.parse(storedRequest);
+          if (currentRequest && savedRequest.id === currentRequest.id) {
+            localStorage.removeItem(deliveryStorageKey);
+          }
+        }
+      } catch (error) {
+        console.error('Could not remove the cancelled prototype delivery request.', error);
+        window.alert('This browser could not remove the saved request. Check local storage and try again.');
+        return;
+      }
+
       cancelDialog.close();
       waitingScreen.hidden = true;
       cancelledScreen.hidden = false;

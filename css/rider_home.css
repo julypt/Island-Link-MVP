@@ -271,6 +271,46 @@
       font-weight: 600;
     }
 
+    .rider-location {
+      position: absolute;
+      z-index: 3;
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .rider-location svg {
+      width: 34px;
+      height: 42px;
+      overflow: visible;
+      filter: drop-shadow(0 2px 3px rgb(32 43 58 / 35%));
+    }
+
+    .rider-location svg path {
+      fill: #c62828;
+      stroke: #fff;
+      stroke-width: 1.5;
+    }
+
+    .rider-location svg circle {
+      fill: #fff;
+    }
+
+    .rider-location span {
+      padding: 4px 7px;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      background: #c62828;
+      color: #fff;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      box-shadow: 0 1px 5px rgb(32 43 58 / 18%);
+    }
+
     .map-note {
       position: absolute;
       right: 12px;
@@ -335,47 +375,40 @@
       stroke-width: 1.2;
     }
 
-    .passenger-count {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: #fff;
-      font-size: 0.78rem;
-      font-weight: 700;
+    .request-marker.has-offer .marker-button {
+      border-color: #fff;
+      box-shadow:
+        0 0 0 4px #91a985,
+        0 0 0 7px rgb(83 109 76 / 30%),
+        0 3px 12px rgb(32 43 58 / 25%);
     }
 
-    .passenger-count svg {
-      width: 20px;
-      height: 20px;
-      fill: none;
-      stroke: #fff;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-width: 1.8;
+    .request-marker.has-offer .marker-button.custom {
+      border-color: #91a985;
     }
 
     .marker-caption {
-      max-width: 150px;
+      max-width: 180px;
       padding: 4px 8px;
       border-radius: 5px;
       background: rgb(255 255 255 / 94%);
       box-shadow: 0 1px 5px rgb(32 43 58 / 10%);
       color: #344254;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       line-height: 1.35;
       text-align: center;
-      white-space: nowrap;
+      white-space: normal;
+      overflow-wrap: anywhere;
     }
 
     .marker-caption strong {
       display: block;
       color: #263547;
-      font-size: 0.73rem;
+      font-size: 0.76rem;
     }
 
-    .marker-caption .destination {
-      display: block;
-      color: var(--accent-dark);
+    .request-marker[data-request-type="custom"] .marker-caption {
+      display: none;
     }
 
     .map-empty {
@@ -404,6 +437,160 @@
       color: var(--muted);
       font-size: 0.8rem;
       text-align: center;
+    }
+
+    .passenger-requests {
+      margin-top: 22px;
+    }
+
+    .passenger-requests-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .passenger-requests-heading h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .passenger-requests-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .passenger-request-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 275px), 1fr));
+      gap: 13px;
+    }
+
+    .passenger-request-card {
+      display: grid;
+      gap: 14px;
+      padding: 17px;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 3px 12px rgb(30 56 82 / 5%);
+    }
+
+    .passenger-request-card[hidden] {
+      display: none;
+    }
+
+    .passenger-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .passenger-card-icon {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      flex: 0 0 auto;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--accent-soft);
+      color: var(--accent-dark);
+    }
+
+    .passenger-card-icon svg {
+      width: 34px;
+      height: 34px;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .passenger-card-count {
+      margin: 0;
+      color: var(--accent-dark);
+      font-size: 1.12rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .passenger-card-distance {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .passenger-card-destination {
+      margin: 0;
+      color: #263547;
+      font-size: 1rem;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .passenger-card-destination span {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+
+    .passenger-card-price {
+      margin: -4px 0 0;
+      color: var(--accent-dark);
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    .passenger-card-price span {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .passenger-card-action {
+      display: grid;
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .passenger-card-prompt {
+      margin: 0;
+      color: #344254;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .take-request-button {
+      width: 100%;
+      min-height: 48px;
+      font-size: 0.9rem;
+      letter-spacing: 0.025em;
+    }
+
+    .take-request-button:disabled {
+      border-color: #aeb9aa;
+      background: #e8ede5;
+      color: #40553a;
+      cursor: default;
+    }
+
+    .request-load-error,
+    .offer-feedback {
+      margin: 0;
+      padding: 11px 13px;
+      border-radius: 8px;
+      background: #fff4e5;
+      color: #714b13;
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
     .offers-section {
@@ -503,16 +690,19 @@
     }
 
     .detail-close {
-      display: grid;
-      width: 36px;
-      height: 36px;
+      display: inline-flex;
+      min-width: 88px;
+      min-height: 44px;
       flex: 0 0 auto;
-      place-items: center;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
       background: #fff;
       color: #344254;
-      font-size: 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
       cursor: pointer;
     }
 
@@ -538,6 +728,12 @@
       color: #263547;
       font-size: 0.95rem;
       font-weight: 600;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .detail-content > .take-request-button {
+      margin-top: 14px;
     }
 
     @media (max-width: 760px) {
@@ -566,6 +762,12 @@
 
       .map-heading {
         align-items: flex-start;
+      }
+
+      .passenger-requests-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
       }
 
       .filter-toggle {

@@ -111,6 +111,11 @@
       line-height: 1.5;
     }
 
+    .offer-unit {
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
     input,
     select,
     textarea {
@@ -390,6 +395,11 @@
       line-height: 1.5;
       overflow-wrap: anywhere;
       white-space: pre-wrap;
+    }
+
+    #summary-offer {
+      color: var(--accent-dark);
+      font-size: 1.05rem;
     }
 
     .cancel-button {

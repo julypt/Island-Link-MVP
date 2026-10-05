@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/customer_home.css">
 </head>
-<body>
+<body class="with-primary-nav" data-role="customer">
   <div class="page-shell">
     <header>
       <p class="brand">Island Link</p>
@@ -16,7 +16,7 @@
     </header>
 
     <main>
-      <section class="welcome" aria-labelledby="welcome-heading">
+      <section class="welcome" id="home" aria-labelledby="welcome-heading">
         <h1 id="welcome-heading">What do you need today?</h1>
         <p class="intro">Choose a service and we'll help connect you with a nearby rider.</p>
       </section>
@@ -81,7 +81,48 @@
           </article>
         </div>
       </section>
+
+      <section class="prototype-tab-section" id="my-requests" aria-labelledby="my-requests-heading">
+        <h2 id="my-requests-heading">My Requests</h2>
+        <p>Your request history is not saved in this prototype yet. Start a ride, delivery, or custom request below.</p>
+        <div class="prototype-tab-actions">
+          <a href="request-ride.html">Request a Ride</a>
+          <a href="request-delivery.html">Request Delivery</a>
+          <a href="custom-request.html">Custom Request</a>
+        </div>
+      </section>
+
+      <section class="prototype-tab-section" id="notifications" aria-labelledby="notifications-heading">
+        <h2 id="notifications-heading">Notifications</h2>
+        <p>No notifications yet. This prototype does not send rider updates.</p>
+      </section>
+
+      <section class="prototype-tab-section" id="profile" aria-labelledby="profile-heading">
+        <h2 id="profile-heading">Profile</h2>
+        <p>Prototype profile. No account or sign-in is required.</p>
+        <a class="role-switch-link" href="../rider/index.html">Switch to Rider</a>
+      </section>
     </main>
   </div>
+
+  <nav class="primary-nav" aria-label="Customer navigation">
+    <a href="#home" data-tab="home" aria-current="page">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>
+      <span>Home</span>
+    </a>
+    <a href="#my-requests" data-tab="my-requests">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5h12M8 12h12M8 19h12"></path><path d="m3 5 1 1 2-2M3 12l1 1 2-2M3 19l1 1 2-2"></path></svg>
+      <span>My Requests</span>
+    </a>
+    <a href="#notifications" data-tab="notifications">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"></path></svg>
+      <span>Notifications</span>
+    </a>
+    <a href="#profile" data-tab="profile">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+  <script src="../js/app.js"></script>
 </body>
 </html>

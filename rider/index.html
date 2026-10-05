@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/rider_home.css">
 </head>
-<body>
+<body class="with-primary-nav" data-role="rider">
   <div class="page-shell">
     <header class="topbar">
       <p class="brand">Island Link</p>
@@ -37,7 +37,7 @@
           <div class="filter-grid">
             <fieldset class="filter-group">
               <legend><h2>Distance from me</h2></legend>
-              <p class="filter-help">How far are you willing to travel to reach a request? This is the approximate distance from you to the request.</p>
+              <p class="filter-help">Approximate distance from the rider's mock location to the request location: the passenger, delivery pickup, or custom request.</p>
               <p class="filter-help">Show requests within:</p>
               <div class="option-list">
                 <label class="option"><input type="radio" name="distance" value="1">1 km</label>
@@ -50,12 +50,9 @@
               <legend><h2>Destination</h2></legend>
               <p class="filter-help">Where is the customer, package, or request going? Choose any destinations that work for you.</p>
               <div class="option-list">
-                <label class="option"><input type="checkbox" name="destination" value="Mahayahay">Mahayahay</label>
-                <label class="option"><input type="checkbox" name="destination" value="Cuarinta">Cuarinta</label>
-                <label class="option"><input type="checkbox" name="destination" value="Poblacion">Poblacion</label>
-                <label class="option"><input type="checkbox" name="destination" value="Other barangay A (placeholder)">Other barangay A (placeholder)</label>
-                <label class="option"><input type="checkbox" name="destination" value="Other barangay B (placeholder)">Other barangay B (placeholder)</label>
-                <label class="option"><input type="checkbox" name="destination" value="Other barangay C (placeholder)">Other barangay C (placeholder)</label>
+                <label class="option"><input type="checkbox" name="destination" value="Justiniana">Justiniana</label>
+                <label class="option"><input type="checkbox" name="destination" value="Wilson">Wilson</label>
+                <label class="option"><input type="checkbox" name="destination" value="Luna">Luna</label>
               </div>
             </fieldset>
           </div>
@@ -75,87 +72,123 @@
             <path d="M0 274c137 27 221 3 297-42M448 327c133 18 212 49 319 15M522 68c98 20 172 7 279-28" fill="none" stroke="#f9fbf8" stroke-width="4" stroke-linecap="round"></path>
           </svg>
           <span class="map-location">Dinagat Islands, Philippines</span>
-          <span class="map-label mahayahay">Mahayahay</span>
-          <span class="map-label cuarinta">Cuarinta</span>
-          <span class="map-label poblacion">Poblacion</span>
+          <span class="map-label mahayahay">Justiniana</span>
+          <span class="map-label cuarinta">Wilson</span>
+          <span class="map-label poblacion">Luna</span>
 
-          <div class="request-marker" data-request-id="ride-1" data-distance="2.4" data-destination="Cuarinta" style="left: 38%; top: 29%;">
-            <button class="marker-button passenger" type="button" aria-label="Passenger request, 3 passengers, heading to Cuarinta, approximate distance 2.4 kilometers">
-              <span class="passenger-count">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="9" cy="7" r="2.5"></circle>
-                  <circle cx="16.5" cy="8" r="2"></circle>
-                  <path d="M4.5 18v-1a4.5 4.5 0 0 1 9 0v1M14 13a3.5 3.5 0 0 1 5.5 2.8V17"></path>
-                </svg>
-                3
-              </span>
-            </button>
-            <span class="marker-caption"><strong>Approx. 2.4 km</strong><span class="destination">To Cuarinta</span></span>
+          <div class="rider-location" role="img" aria-label="You are here — mock rider location" style="left: 82%; top: 39%;">
+            <svg viewBox="0 0 24 32" aria-hidden="true">
+              <path d="M12 1.5a10 10 0 0 0-10 10c0 7.1 10 18.8 10 18.8S22 18.6 22 11.5a10 10 0 0 0-10-10z"></path>
+              <circle cx="12" cy="11.5" r="3.2"></circle>
+            </svg>
+            <span>YOU ARE HERE</span>
           </div>
 
-          <div class="request-marker" data-request-id="ride-2" data-distance="4.8" data-destination="Mahayahay" style="left: 64%; top: 44%;">
-            <button class="marker-button passenger" type="button" aria-label="Passenger request, 2 passengers, heading to Mahayahay, approximate distance 4.8 kilometers">
-              <span class="passenger-count">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <circle cx="9" cy="7" r="2.5"></circle>
-                  <circle cx="16.5" cy="8" r="2"></circle>
-                  <path d="M4.5 18v-1a4.5 4.5 0 0 1 9 0v1M14 13a3.5 3.5 0 0 1 5.5 2.8V17"></path>
-                </svg>
-                2
-              </span>
+          <div class="request-marker" data-request-id="ride-1" data-request-type="passenger" data-request-location="Justiniana" data-distance="2.4" data-destination="Wilson" style="left: 38%; top: 29%;">
+            <button class="marker-button passenger" type="button" aria-label="Passenger request heading to Wilson">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="9" cy="7" r="2.5"></circle>
+                <circle cx="16.5" cy="8" r="2"></circle>
+                <path d="M4.5 18v-1a4.5 4.5 0 0 1 9 0v1M14 13a3.5 3.5 0 0 1 5.5 2.8V17"></path>
+              </svg>
             </button>
-            <span class="marker-caption"><strong>Approx. 4.8 km</strong><span class="destination">To Mahayahay</span></span>
+            <span class="marker-caption"><strong>→ Wilson</strong></span>
           </div>
 
-          <div class="request-marker" data-request-id="delivery-1" data-distance="5.2" data-destination="Poblacion" style="left: 43%; top: 58%;">
-            <button class="marker-button delivery" type="button" aria-label="Delivery request, approximate distance 5.2 kilometers">
+          <div class="request-marker" data-request-id="ride-2" data-request-type="passenger" data-request-location="Wilson" data-distance="4.8" data-destination="Luna" style="left: 64%; top: 44%;">
+            <button class="marker-button passenger" type="button" aria-label="Passenger request heading to Luna">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="9" cy="7" r="2.5"></circle>
+                <circle cx="16.5" cy="8" r="2"></circle>
+                <path d="M4.5 18v-1a4.5 4.5 0 0 1 9 0v1M14 13a3.5 3.5 0 0 1 5.5 2.8V17"></path>
+              </svg>
+            </button>
+            <span class="marker-caption"><strong>→ Luna</strong></span>
+          </div>
+
+          <div class="request-marker" data-request-id="delivery-1" data-request-type="delivery" data-request-location="Justiniana" data-distance="5.2" data-destination="Wilson" style="left: 43%; top: 58%;">
+            <button class="marker-button delivery" type="button" aria-label="Delivery package from Justiniana to Wilson">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m3 7 9-4 9 4v10l-9 4-9-4z"></path>
                 <path d="m3 7 9 4 9-4M12 11v10"></path>
               </svg>
             </button>
-            <span class="marker-caption"><strong>Approx. 5.2 km</strong></span>
+            <span class="marker-caption"><strong>Justiniana → Wilson</strong></span>
           </div>
 
-          <div class="request-marker" data-request-id="delivery-2" data-distance="7.1" data-destination="Other barangay A (placeholder)" style="left: 70%; top: 69%;">
-            <button class="marker-button delivery" type="button" aria-label="Delivery request, approximate distance 7.1 kilometers">
+          <div class="request-marker" data-request-id="delivery-2" data-request-type="delivery" data-request-location="Wilson" data-distance="7.1" data-destination="Luna" style="left: 70%; top: 69%;">
+            <button class="marker-button delivery" type="button" aria-label="Delivery package from Wilson to Luna">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m3 7 9-4 9 4v10l-9 4-9-4z"></path>
                 <path d="m3 7 9 4 9-4M12 11v10"></path>
               </svg>
             </button>
-            <span class="marker-caption"><strong>Approx. 7.1 km</strong></span>
+            <span class="marker-caption"><strong>Wilson → Luna</strong></span>
           </div>
 
-          <div class="request-marker" data-request-id="custom-1" data-distance="3.6" data-destination="Cuarinta" style="left: 28%; top: 75%;">
-            <button class="marker-button custom" type="button" aria-label="Custom rider request, approximate distance 3.6 kilometers">
+          <div class="request-marker" data-request-id="custom-1" data-request-type="custom" data-request-location="Luna" data-distance="3.6" data-destination="Luna" style="left: 28%; top: 75%;">
+            <button class="marker-button custom" type="button" aria-label="Custom rider request at Luna — tap for details">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m12 2.8 2.8 5.7 6.3.9-4.6 4.5 1.1 6.3-5.6-3-5.6 3 1.1-6.3-4.6-4.5 6.3-.9z"></path>
               </svg>
             </button>
-            <span class="marker-caption"><strong>Approx. 3.6 km</strong></span>
+            <span class="marker-caption" aria-hidden="true"></span>
           </div>
 
           <p class="map-empty" id="map-empty" hidden>No mock requests match these filters. Adjust or clear your filters to see other requests.</p>
-          <p class="map-note">Schematic prototype map · mock requests only · Distances are approximate and may differ from actual road distance.</p>
+          <p class="map-note">Schematic prototype map · distances are rider-to-request location, not passenger destination or delivery drop-off.</p>
         </div>
         <p class="distance-note" id="results-count" aria-live="polite">5 mock requests shown</p>
+      </section>
+
+      <section class="passenger-requests" aria-labelledby="passenger-requests-title">
+        <div class="passenger-requests-heading">
+          <h2 id="passenger-requests-title">Passenger requests</h2>
+          <p>Quick look · tap an offer to take action</p>
+        </div>
+        <p class="request-load-error" id="request-load-error" role="alert" hidden></p>
+        <div class="passenger-request-cards" id="passenger-request-cards"></div>
       </section>
 
       <section class="offers-section" id="offers" aria-labelledby="offers-title">
         <h2 id="offers-title">My Offers</h2>
         <div class="offer-statuses">
-          <div class="offer-status"><h3>Pending Offers</h3><p>No offers yet</p></div>
+          <div class="offer-status"><h3>Pending Offers</h3><p id="pending-offers-status">No offers yet</p></div>
           <div class="offer-status"><h3>Accepted Offers</h3><p>No offers yet</p></div>
           <div class="offer-status"><h3>Active Offers</h3><p>No offers yet</p></div>
           <div class="offer-status"><h3>Completed Offers</h3><p>No offers yet</p></div>
         </div>
       </section>
+
+      <section class="prototype-tab-section" id="notifications" aria-labelledby="notifications-heading">
+        <h2 id="notifications-heading">Notifications</h2>
+        <p>No notifications yet. This prototype does not send passenger updates.</p>
+      </section>
+
+      <section class="prototype-tab-section" id="profile" aria-labelledby="profile-heading">
+        <h2 id="profile-heading">Profile</h2>
+        <p>Prototype rider profile. No account or sign-in is required.</p>
+        <a class="role-switch-link" href="../customer/index.html">Switch to Customer</a>
+      </section>
     </main>
 
-    <nav class="bottom-nav" aria-label="Rider navigation">
-      <a href="#map" aria-current="page">Map</a>
-      <a href="#offers">My Offers</a>
+    <nav class="primary-nav" aria-label="Rider navigation">
+      <a href="#map" data-tab="map" aria-current="page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6 9 3l6 3 6-3v15l-6 3-6-3-6 3z"></path><path d="M9 3v15M15 6v15"></path></svg>
+        <span>Map</span>
+      </a>
+      <a href="#offers" data-tab="offers">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v11H3zM14 11h4l3 3v4h-7z"></path><circle cx="7.5" cy="19" r="2"></circle><circle cx="17.5" cy="19" r="2"></circle></svg>
+        <span>My Offers</span>
+      </a>
+      <a href="#notifications" data-tab="notifications">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"></path></svg>
+        <span>Notifications</span>
+      </a>
+      <a href="#profile" data-tab="profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></svg>
+        <span>Profile</span>
+      </a>
     </nav>
   </div>
 
@@ -163,12 +196,15 @@
     <div class="detail-content">
       <div class="detail-heading">
         <h2 id="detail-title"></h2>
-        <button class="detail-close" id="close-details" type="button" aria-label="Close request details">&times;</button>
+        <button class="detail-close" id="close-details" type="button" aria-label="Back to map">← Back</button>
       </div>
       <dl class="detail-fields" id="detail-fields"></dl>
+      <p class="offer-feedback" id="offer-feedback" role="status" hidden></p>
+      <button class="button-primary take-request-button" id="offer-request" type="button" hidden>OFFER TO TAKE</button>
     </div>
   </dialog>
 
   <script src="../js/rider_home.js"></script>
+  <script src="../js/app.js"></script>
 </body>
 </html>
